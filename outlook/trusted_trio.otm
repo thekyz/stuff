@@ -1,0 +1,21 @@
+' Outlook macros for trusted trio mail configuration
+
+Sub MoveToFolder(FolderName)
+    Set DestinationFolder = Application.GetNamespace("MAPI").GetDefaultFolder(olFolderInbox).Parent.Folders(FolderName)
+
+    For Each Msg In ActiveExplorer.Selection
+        Msg.Move DestinationFolder
+    Next Msg
+End Sub
+
+Sub Archive()
+    MoveToFolder ("_Archive")
+End Sub
+
+Sub Hold()
+    MoveToFolder ("_Hold")
+End Sub
+
+Sub FollowUp()
+    MoveToFolder ("_Follow Up")
+End Sub
