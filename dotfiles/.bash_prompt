@@ -1,0 +1,40 @@
+
+
+# Variables for prompt clarity
+
+LBLUE=$'\e[36m'
+PURPLE=$'\e[35m'
+GREEN=$'\e[32m'
+ORANGE=$'\e[33m'
+YELLOW=$'\e[37m'
+PINK=$'\e[31m'
+RESET=$'\e[0m'
+
+function _git_prompt() {
+    local git_status="`git status -unormal 2>&1`"
+    if ! [[ "$git_status" =~ Not\ a\ git\ repo ]]; then
+        if [[ "$git_status" =~ nothing\ to\ commit ]]; then
+            local gitcolor="nothing to commit:$YELLOW"
+        elif [[ "$git_status" =~ nothing\ added\ to\ commit\ but\ untracked\ files\ present ]]; then
+            local gitcolor="untracked:$PINK"
+        else
+            local gitcolor="branch:$LBLUE"
+        fi
+        if [[ "$git_status" =~ On\ branch\ ([^[:space:]]+) ]]; then
+            branch=${BASH_REMATCH[1]}
+            test "$branch" != master || branch=' '
+        else
+            # Detached HEAD.  (branch=HEAD is a faster alternative.)
+            branch="(`git describe --all --contains --abbrev=4 HEAD 2> /dev/null ||
+                echo HEAD`)"
+        fi
+        echo -n "$gitcolor $branch"
+    fi
+}
+
+function _prompt_command() {
+    #PS1='\n\n\[$PINK\]\u \[$LBLUE\]on \[$PURPLE\]\d \[$LBLUE\]at \[$ORANGE\]\@ \[$LBLUE\]in \[$GREEN\]\w \[$ORANGE\]`_git_prompt` \n\[$GREEN\]>> \[$YELLOW\]'
+    PS1='\[$PINK\]\u\[$LBLUE\]@\[$PURPLE\]\h\[$ORANGE\]`_git_prompt`\[$PINK\]|\[$GREEN\]\W\[$PINK\]|\[$RESET\] '
+}
+
+PROMPT_COMMAND=_prompt_command

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export ISAM_IP=172.31.46.145
+export ISAM_GICI=172.31.213.50
+

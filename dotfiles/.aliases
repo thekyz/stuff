@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# use coreutils `ls` if possible
+hash gls >/dev/null 2>&1 || alias gls="ls"
+
+# always use color, even when piping (to awk,grep,etc)
+if gls --color > /dev/null 2>&1; then colorflag="--color"; else colorflag="-G"; fi;
+export CLICOLOR_FORCE=1
+
+# force tmux into 256 colors mode
+alias tmux='tmux -2'
+
+# mercurial queue modifications
+alias mq='hg -R $(hg root)/.hg/patches'
+
+# ls options: A = include hidden (but not . or ..), F = put `/` after folders, h = byte unit suffixes
+alias ls='gls -AFh ${colorflag} --group-directories-first'
+alias lsd='ls -l | grep "^d"' # only directories
+#    `la` is defined in .functions
+
+# File size
+alias fs="stat -f \"%z bytes\""
+
+# text search
+alias ack='ag'
+alias ag='ag -f --hidden --ignore-dir=.hg --ignore-dir=.git --ignore-dir=.svn --silent'
+alias isamag='ag -f --hidden --ignore-dir=.hg --ignore-dir=.git --ignore-dir=.svn --silent --ignore *.map --ignore *.cmd'
+
+# `cat` with beautiful colors. requires: sudo pip install Pygments
+alias cat='pygmentize -O style=monokai -f console256 -g'
+
+alias ec='vim ~/.bashrc'
+alias sc='source ~/.bashrc'
+alias ea='vim ~/.aliases'
+alias sa='bind -f ~/.aliases'
+
+# simple ls all
+alias ll='ls -al'
+
+# simple sublime alias
+alias subl="~agarciam/tools/sublime_text_3/sublime_text"
+
+# brutal cscpoe tags generation
+alias genscope='find . -name "*" -print > cscope.files; cscope -b -q'
+
+### Nokia
+alias vncslap="vncserver -geometry 1920x1200 :3"
+alias vncsdes="vncserver -geometry 1366x768 :4"
+
+alias goms='cd /repo/agarciam/sw-ms/'
+
