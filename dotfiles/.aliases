@@ -48,4 +48,5 @@ alias vncslap="vncserver -geometry 1920x1200 :3"
 alias vncsdes="vncserver -geometry 1366x768 :4"
 
 alias goms='cd /repo/agarciam/sw-ms/'
+alias goref='cd /repo/agarciam/ref/'
 
