@@ -1,5 +1,7 @@
 #!/bin/bash
 
+eval $(thefuck --alias)
+
 # use coreutils `ls` if possible
 hash gls >/dev/null 2>&1 || alias gls="ls"
 
@@ -21,10 +23,13 @@ alias lsd='ls -l | grep "^d"' # only directories
 # File size
 alias fs="stat -f \"%z bytes\""
 
+# prettify json
+alias prettyjson="python -m json.tool"
+
 # text search
 alias ack='ag'
 alias ag='ag -f --hidden --ignore-dir=.hg --ignore-dir=.git --ignore-dir=.svn --silent'
-alias isamag='ag -f --hidden --ignore-dir=.hg --ignore-dir=.git --ignore-dir=.svn --silent --ignore *.map --ignore *.cmd'
+alias isamag='ag -f --hidden --ignore-dir=.hg --ignore-dir=.git --ignore-dir=.svn --silent --ignore *.map --ignore *_Gen.cpp --ignore *.cmd --ignore *.mem --ignore *.link'
 
 # `cat` with beautiful colors. requires: sudo pip install Pygments
 alias cat='pygmentize -O style=monokai -f console256 -g'
