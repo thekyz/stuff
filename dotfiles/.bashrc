@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#export PATH=""
+
 [ -f $PROFILEROOT/bash-common/.bashrc ] && . $PROFILEROOT/bash-common/.bashrc
 
 for file in ~/.{extra,bash_prompt,exports,aliases,functions}; do
@@ -8,9 +10,9 @@ done
 unset file
 
 # to help sublimelinter etc with finding my PATHS
-case $- in
-   *i*) source ~/.extra
-esac
+#case $- in
+#   *i*) source ~/.extra
+#esac
 
 # timestamps for later analysis. www.debian-administration.org/users/rossen/weblog/1
 export HISTTIMEFORMAT='%F %T '
@@ -35,4 +37,18 @@ shopt -s nocaseglob;
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
+# Fix path to avoid duplicate entries
+if [ -n "$PATH" ]; then
+    old_PATH=$PATH:; PATH=
+    while [ -n "$old_PATH"  ]; do
+        x=${old_PATH%%:*}       # the first remaining entry
+        case $PATH: in
+            *:"$x":*) ;;         # already there
+            *) PATH=$PATH:$x;;    # not there yet
+        esac
+        old_PATH=${old_PATH#*:}
+    done
+    PATH=${PATH#:}
+    unset old_PATH x
+fi
 
