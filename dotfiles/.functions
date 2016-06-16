@@ -26,19 +26,54 @@ function la(){
     }'
 }
 
+function hgm(){
+  hg st -q | cut -c3- | tr '\n' ' '
+}
+
 #### Nokia
 
 function sshi() {
-    _iip=$1
+  # set -x
 
-    while true;  do
-        ping -c 1 -i 0.2 172.31.46."$_iip" > /dev/null
-        if [ $? -eq 0 ]; then
-            break
-        fi
-        sleep 0.5
+  _iip=$1
+  _blade="-/|\\"
+
+  echo -ne
+
+  _idle=0
+
+  while : ; do
+    while : ;  do
+      echo -ne "\r[${_blade:$(expr $_idle % 4):1}] Waiting for connection (idle for $_idle seconds) ..."
+      _idle=$(expr $_idle + 1)
+
+      # We first try pinging then go on with ssh connection test if ping succeeds
+      fping -c1 -t200 172.31.46."$_iip" -q &> /dev/null
+      _rc=$?
+      if [ $_rc -ne 0 ]; then
+        # ping fails, try again ...
+        sleep 1
+        continue
+      fi
+
+      # Let's try connecting via ssh ...
+      sshpass -p "2x2=4" ssh -p 2222 root@172.31.46."$_iip" -q -o StrictHostKeyChecking=no -o ConnectTimeout=1 -o ConnectionAttempts=1 exit > /dev/null
+      _rc=$?
+      
+      if [ $_rc -eq 0 ]; then
+        # Finnaly connected !
+        break
+      fi
+
+      if [ $_rc -eq 255 ]; then
+        # Connection refused error does not wait for timeout on ssh tries, so we'll add a bit of air here
+        sleep 1
+      fi
     done
-    sshpass -p "2x2=4" ssh -p 2222 root@172.31.46."$_iip"
+    echo
+    echo "[x] Connected !"
+    sshpass -p "2x2=4" ssh -p 2222 root@172.31.46."$_iip" -o StrictHostKeyChecking=no
+    [[ $? -eq 255 ]] || break
+    _idle=0
+  done
 }
-
-
