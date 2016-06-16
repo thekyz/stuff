@@ -3,3 +3,7 @@
 export ISAM_IP=172.31.46.145
 export ISAM_GICI=172.31.213.50
 
+export PATH="$HOME/apps/bin:$PATH"
+#export NODE_PATH="$HOME/.node/lib/node_modules:$NODE_PATH"
+#export MANPATH="$HOME/.node/share/man:$MANPATH"
+
