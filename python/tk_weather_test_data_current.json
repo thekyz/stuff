@@ -1,0 +1,37 @@
+ {
+     "coord": {
+         "lon":4.49,
+         "lat":50.84
+     },
+     "weather": [
+         {"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}
+     ],
+     "base":"stations",
+     "main": {
+         "temp":289.056,
+         "pressure":1031.2,
+         "humidity":87,
+         "temp_min":289.056,
+         "temp_max":289.056,
+         "sea_level":1034.35,
+         "grnd_level":1031.2
+     },
+     "wind": {
+         "speed":4.17,
+         "deg":319.5
+     },
+     "clouds": {
+         "all":68
+     },
+     "dt":1468485959,
+     "sys": {
+         "message":0.0283,
+         "country":"BE",
+         "sunrise":1468467921,
+         "sunset":1468525797
+     },
+     "id":2783737,
+     "name":"Wezembeek-Oppem",
+     "cod":200
+ }
+
