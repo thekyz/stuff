@@ -16,7 +16,7 @@ for i in $(find ~/stuff/dotfiles -maxdepth 1 -name ".*" -type f -printf "%P \n")
         mv ~/$i ~/$i.bkp
     fi
 
-    ln -s $i ~/$i
+    ln -s ~/stuff/dotfiles/$i ~/$i
 done
 
 source ~/.bashrc
