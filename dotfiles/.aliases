@@ -48,6 +48,8 @@ alias subl="~agarciam/tools/sublime_text_3/sublime_text"
 # brutal cscpoe tags generation
 alias genscope='find . -name "*" -print > cscope.files; cscope -b -q'
 
+alias mqe='vim $(hg root)/.hg/patches/series'
+
 ### Nokia
 alias vncslap="vncserver -geometry 1920x1200 :3"
 alias vncsdes="vncserver -geometry 1366x768 :4"
