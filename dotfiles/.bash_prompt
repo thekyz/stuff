@@ -33,8 +33,10 @@ function _git_prompt() {
 }
 
 function _prompt_command() {
+    PROMPT_DIRTRIM=3
     #PS1='\n\n\[$PINK\]\u \[$LBLUE\]on \[$PURPLE\]\d \[$LBLUE\]at \[$ORANGE\]\@ \[$LBLUE\]in \[$GREEN\]\w \[$ORANGE\]`_git_prompt` \n\[$GREEN\]>> \[$YELLOW\]'
-    PS1='\[$PINK\]\u\[$LBLUE\]@\[$PURPLE\]\h\[$ORANGE\]`_git_prompt`\[$PINK\]|\[$GREEN\]\W\[$PINK\]|\[$RESET\] '
+    #PS1='\[$PINK\]\u\[$LBLUE\]@\[$PURPLE\]\h\[$ORANGE\]`_git_prompt`\[$PINK\]|\[$GREEN\]\W\[$PINK\]|\[$RESET\] '
+    PS1='\[$PINK\]\u\[$LBLUE\]@\[$PURPLE\]\h\[$ORANGE\]`_git_prompt`\[$PINK\]|\[$GREEN\]\w\[$PINK\]|\[$RESET\] '
 }
 
 PROMPT_COMMAND=_prompt_command
