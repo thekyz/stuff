@@ -1,5 +1,7 @@
 #!/bin/bash
 
+TERM=xterm-256color
+
 #export PATH=""
 
 [ -f $PROFILEROOT/bash-common/.bashrc ] && . $PROFILEROOT/bash-common/.bashrc

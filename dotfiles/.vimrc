@@ -16,7 +16,7 @@ filetype plugin indent on
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
-" NerdTree togglv
+" NerdTree toggle
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 set switchbuf=usetab,newtab
@@ -83,11 +83,6 @@ if has('gui_running')
         set guifont=PragmataPro\ for\ Powerline\ 10
     endif
 endif
-
-" Powerline
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
 
 " }}}
 "

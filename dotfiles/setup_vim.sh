@@ -1,9 +1,14 @@
 #!/bin/bash
 
-mkdir -p ~/.vim/autoload ~/.vim/bundle
+mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-mkdir -p ~/.vim/colors
 cd ~/.vim/colors
-wget https://raw.githubusercontent.com/flazz/vim-colorschemes/master/colors/molokai.vim
+if [ ! -f ~/.vim/colors/molokai.vim ]; then
+    wget https://raw.githubusercontent.com/flazz/vim-colorschemes/master/colors/molokai.vim
+fi
+
+cd ~/.vim/bundle
+git clone --depth=1 https://github.com/scrooloose/syntastic.git
+git clone --depth=1 https://github.com/vim-airline/vim-airline
 

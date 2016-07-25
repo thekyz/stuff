@@ -6,7 +6,7 @@ su -c "visudo"
 
 sudo apt-get remove vim-tiny
 sudo apt-get update
-sudo apt-get install vim git python vim-gnome python-pip
+sudo apt-get install vim git python vim-gnome python-pip curl
 
 # uncomment if necessary
 #export http_proxy=
@@ -24,4 +24,6 @@ for i in $(find ~/stuff/dotfiles -maxdepth 1 -name ".*" -type f -printf "%P \n")
 done
 
 source ~/.bashrc
+
+source vim_setup.sh
 
