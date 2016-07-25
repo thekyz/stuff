@@ -1,1 +1,5 @@
 *.pyc
+*.o
+
+zmq_client
+zmq_server

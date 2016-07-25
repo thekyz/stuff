@@ -13,10 +13,10 @@ int main(int argc, char *argv[])
 
     char buffer[MAX_MESSAGE_LENGTH];
     for (int requestIt = 0; requestIt < 10; requestIt++) {
-        printf("++ [%d] Sending ping ...\n", requestIt);
-        zmq_send(requester, "ping", 4, 0);
+        printf("[C] [%d] Sending ping ...\n", requestIt);
+        zmq_send(requester, "ping", 5, 0);
         zmq_recv(requester, buffer, MAX_MESSAGE_LENGTH, 0);
-        printf("++ [%d] Received: '%s'\n", requestIt, buffer);
+        printf("[C] [%d] Received: '%s'\n", requestIt, buffer);
     }
 
     zmq_close(requester);
