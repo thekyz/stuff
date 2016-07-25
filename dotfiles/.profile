@@ -13,3 +13,8 @@ else
 fi
 
 . /ap/local/env/profiles/.profile.common
+
+#PATH="$HOME/.node/bin:$PATH"
+#NODE_PATH="$HOME/.node/lib/node_modules:$NODE_PATH"
+#MANPATH="$HOME/.node/share/man:$MANPATH"
+
