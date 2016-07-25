@@ -1,8 +1,12 @@
 #/!bin/bash
 
-su -c "apt-get install git python vim sudo"
-export EDITOR=vim
+su -c "apt-get install sudo"
+export EDITOR=vi
 su -c "visudo"
+
+sudo apt-get remove vim-tiny
+sudo apt-get update
+sudo apt-get install vim git python vim-gnome python-pip
 
 # uncomment if necessary
 #export http_proxy=
