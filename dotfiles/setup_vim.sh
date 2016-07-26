@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/.vim/ftplugin/sh.vim
+mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/.vim/ftplugin
 
 # Install pathogen
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
