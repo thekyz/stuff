@@ -168,6 +168,10 @@ vnoremap <leader>/ :call NERDComment(0,"toggle")<CR>
 
 set pastetoggle=<F2>
 
+" Quickfix window open for shellcheck
+au QuickFixCmdPost [^l]* nested cwindow
+au QuickFixCmdPost    l* nested lwindow
+
 " }}}
 "
 " Search {{{
