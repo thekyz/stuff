@@ -22,21 +22,19 @@ function _git_prompt() {
         fi
         if [[ "$git_status" =~ On\ branch\ ([^[:space:]]+) ]]; then
             branch=${BASH_REMATCH[1]}
-            test "$branch" != master || branch=' '
+            test "$branch" != master || branch=''
         else
             # Detached HEAD.  (branch=HEAD is a faster alternative.)
             branch="(`git describe --all --contains --abbrev=4 HEAD 2> /dev/null ||
                 echo HEAD`)"
         fi
-        echo -n "$gitcolor $branch"
+        echo -n "$PINK|$ORANGE$gitcolor$branch"
     fi
 }
 
 function _prompt_command() {
     PROMPT_DIRTRIM=3
-    #PS1='\n\n\[$PINK\]\u \[$LBLUE\]on \[$PURPLE\]\d \[$LBLUE\]at \[$ORANGE\]\@ \[$LBLUE\]in \[$GREEN\]\w \[$ORANGE\]`_git_prompt` \n\[$GREEN\]>> \[$YELLOW\]'
-    #PS1='\[$PINK\]\u\[$LBLUE\]@\[$PURPLE\]\h\[$ORANGE\]`_git_prompt`\[$PINK\]|\[$GREEN\]\W\[$PINK\]|\[$RESET\] '
-    PS1='\[$PINK\]\u\[$LBLUE\]@\[$PURPLE\]\h\[$ORANGE\]`_git_prompt`\[$PINK\]|\[$GREEN\]\w\[$PINK\]|\[$RESET\] '
+    PS1='\[$PINK\]\u\[$LBLUE\]@\[$PURPLE\]\h`_git_prompt`\[$PINK\]|\[$GREEN\]\w\[$PINK\]|\[$RESET\] '
 }
 
 PROMPT_COMMAND=_prompt_command
