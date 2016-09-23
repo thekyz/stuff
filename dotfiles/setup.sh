@@ -8,9 +8,9 @@ su -c "apt-get install sudo"
 export EDITOR=vi
 su -c "visudo"
 
-sudo apt-get remove vim-tiny
-sudo apt-get update
-sudo apt-get install vim git python vim-gnome python-pip curl silversearcher-ag shellcheck
+sudo apt-get remove vim-tiny -y
+sudo apt-get update -y
+sudo apt-get install vim git python vim-gnome python-pip curl silversearcher-ag shellcheck -y
 
 cd ~
 git clone https://www.github.com/stuff
