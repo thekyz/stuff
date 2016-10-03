@@ -15,16 +15,9 @@ sudo apt-get install vim git python vim-gnome python-pip curl silversearcher-ag 
 cd ~
 git clone https://www.github.com/stuff
 
-shopt -s globstar nullglob
-for dotfile in ~/stuff/dotfiles/.*; do
-    if [ -e ~/"$dotfile" ]; then
-        mv ~/"$dotfile" ~/"$dotfile".bkp
-    fi
-
-    ln -s ~/stuff/dotfiles/"$dotfile" ~/"$dotfile"
-done
+source setup_dotfiles.sh
 
 source ~/.bashrc
 
-source vim_setup.sh
+source setup_vim.sh
 
