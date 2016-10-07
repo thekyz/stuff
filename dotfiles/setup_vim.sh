@@ -18,6 +18,7 @@ git clone --depth=1 https://github.com/vim-airline/vim-airline.git
 git clone --depth=1 https://github.com/tpope/vim-dispatch.git
 git clone --depth=1 https://github.com/wincent/ferret.git
 git clone --depth=1 https://github.com/tpope/vim-surround.git
+git clone --depth=1 https://github.com/scrooloose/nerdtree.git
 
 # Filetype plugins ...
 git clone --depth=1 https://github.com/thekyz/vim-ftplugins.git ~/.vim/ftplugin
