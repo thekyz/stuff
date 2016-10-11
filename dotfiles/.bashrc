@@ -6,7 +6,7 @@ TERM=xterm-256color
 
 [ -f $PROFILEROOT/bash-common/.bashrc ] && . $PROFILEROOT/bash-common/.bashrc
 
-for file in ~/.{extra,bash_prompt,exports,aliases,functions}; do
+for file in ~/.{bash_prompt,extra,exports,aliases,functions}; do
     [ -r "$file" ] && source "$file"
 done
 unset file

@@ -12,6 +12,8 @@ sudo apt-get remove vim-tiny -y
 sudo apt-get update -y
 sudo apt-get install vim git python vim-gnome python-pip curl silversearcher-ag shellcheck -y
 
+sudo pip install pygments
+
 cd ~
 git clone https://www.github.com/stuff
 
