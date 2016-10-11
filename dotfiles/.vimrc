@@ -15,9 +15,13 @@ filetype plugin indent on
 " CtrlP shortcuts
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'rw'
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 " NerdTree toggle
 nnoremap <C-n> :NERDTreeToggle<CR>
+
+let g:NERDTreeChDirMode = 2
 
 set switchbuf=usetab,newtab
 
