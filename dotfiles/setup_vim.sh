@@ -20,6 +20,7 @@ git clone --depth=1 https://github.com/wincent/ferret.git
 git clone --depth=1 https://github.com/tpope/vim-surround.git
 git clone --depth=1 https://github.com/scrooloose/nerdtree.git
 git clone --depth=1 https://github.com/scrooloose/nerdcommenter.git
+git clone --depth=1 https://github.com/kien/ctrlp.vim.git
 
 
 # Filetype plugins ...
