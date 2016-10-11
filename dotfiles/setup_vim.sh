@@ -20,8 +20,8 @@ git clone --depth=1 https://github.com/wincent/ferret.git
 git clone --depth=1 https://github.com/tpope/vim-surround.git
 git clone --depth=1 https://github.com/scrooloose/nerdtree.git
 git clone --depth=1 https://github.com/scrooloose/nerdcommenter.git
-git clone --depth=1 https://github.com/kien/ctrlp.vim.git
-
+git clone --depth=1 https://github.com/ctrlpvim/ctrlp.vim.git
+git clone --depth=1 https://github.com/FelikZ/ctrlp-py-matcher.git 
 
 # Filetype plugins ...
 git clone --depth=1 https://github.com/thekyz/vim-ftplugins.git ~/.vim/ftplugin
