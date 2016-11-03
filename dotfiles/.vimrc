@@ -14,12 +14,21 @@ filetype plugin indent on
 
 " CtrlP shortcuts
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_cmd = 'CtrlP .'
 let g:ctrlp_working_path_mode = 'rw'
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.((exe|so|dll|a|o|gcno|gcda|d)$|(nostrip))'
+    \ }
+"let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 " NerdTree toggle
-nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-b> :NERDTreeToggle<CR>
+
+let g:NERDTreeChDirMode = 2
+
+let NERDTreeIgnore = ['\.gcda$','\.gcno$','\.d$']
 
 let g:NERDTreeChDirMode = 2
 
@@ -32,6 +41,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+set nowrap
 
 set encoding=utf-8
 set scrolloff=3
@@ -88,6 +98,8 @@ if has('gui_running')
         set guifont=PragmataPro\ for\ Powerline\ 10
     endif
 endif
+
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " }}}
 "
@@ -171,6 +183,9 @@ nnoremap <leader>mbt :MBEToggle<cr>
 nnoremap <leader>/ :call NERDComment(0,"toggle")<CR>
 vnoremap <leader>/ :call NERDComment(0,"toggle")<CR>
 
+" Delete buffer while keeping window
+nnoremap <silent> <leader>d :bp\|bd #<CR>
+
 set pastetoggle=<F2>
 
 " Quickfix window open for shellcheck
@@ -198,7 +213,7 @@ vnoremap <tab> %
 
 " }}}
 "
-" Search {{{
+" Syntastic {{{
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
