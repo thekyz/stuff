@@ -48,7 +48,7 @@ function sshi() {
       _idle=$(expr $_idle + 1)
 
       # We first try pinging then go on with ssh connection test if ping succeeds
-      fping -c1 -t200 172.31.46."$_iip" -q &> /dev/null
+      fping -c1 -t200 "$_iip" -q &> /dev/null
       _rc=$?
       if [ $_rc -ne 0 ]; then
         # ping fails, try again ...
@@ -57,7 +57,7 @@ function sshi() {
       fi
 
       # Let's try connecting via ssh ...
-      sshpass -p "2x2=4" ssh -p 2222 root@172.31.46."$_iip" -q -o StrictHostKeyChecking=no -o ConnectTimeout=1 -o ConnectionAttempts=1 exit > /dev/null
+      sshpass -p "2x2=4" ssh -p 2222 root@"$_iip" -q -o StrictHostKeyChecking=no -o ConnectTimeout=1 -o ConnectionAttempts=1 exit > /dev/null
       _rc=$?
       
       if [ $_rc -eq 0 ]; then
@@ -72,12 +72,31 @@ function sshi() {
     done
     echo
     echo "[x] Connected !"
-    sshpass -p "2x2=4" ssh -p 2222 root@172.31.46."$_iip" -o StrictHostKeyChecking=no
+    sshpass -p "2x2=4" ssh -p 2222 root@"$_iip" -o StrictHostKeyChecking=no
     [[ $? -eq 255 ]] || break
     _idle=0
   done
 }
 
+function smakebl() {
+  _vers=$1
+
+  if [ -z "$2" ]; then
+    jmake BUILDROOT_BASE_DIR_BETA1=/repo/agarciam/buildroot-cache BR2_DL_DIR=/repo/agarciam/buildroot-cache/dl LOCAL_BUILD=1 BUILDROOT_KEEP_MULTIPLE_REVS=1 IVY=ivy -j9 VERS="$_vers" 2>&1 | tee buildlog_"$_vers".log | grep -e ">>>"
+  else
+    jmake BOARD_LIST=$2 BUILDROOT_BASE_DIR_BETA1=/repo/agarciam/buildroot-cache BR2_DL_DIR=/repo/agarciam/buildroot-cache/dl LOCAL_BUILD=1 BUILDROOT_KEEP_MULTIPLE_REVS=1 IVY=ivy -j9 VERS="$_vers" 2>&1 | tee buildlog_"$_vers".log | grep -e ">>>"
+  fi
+  
+  
+  cat buildlog_$_vers.log | grep "\*\*\*" -A 5
+  _rc=$?
+  if [ $_rc -ne 0 ]; then
+    echo "+++ Build complete (log available here : buildlog_$_vers.log) !" | grep "+++"
+    return 0
+  fi
+
+  return 1
+}
 function smake() {
   _vers=$1
 
