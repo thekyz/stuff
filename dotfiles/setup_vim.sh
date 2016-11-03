@@ -22,6 +22,7 @@ git clone --depth=1 https://github.com/scrooloose/nerdtree.git
 git clone --depth=1 https://github.com/scrooloose/nerdcommenter.git
 git clone --depth=1 https://github.com/ctrlpvim/ctrlp.vim.git
 git clone --depth=1 https://github.com/FelikZ/ctrlp-py-matcher.git 
+git clone --depth=1 https://github.com/terryma/vim-multiple-cursors.git
 
 # Filetype plugins ...
 git clone --depth=1 https://github.com/thekyz/vim-ftplugins.git ~/.vim/ftplugin
