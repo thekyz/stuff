@@ -31,7 +31,6 @@ else
     # if this does not work add : Defaults env_keep += "http_proxy https_proxt ftp_proxy" to visudo
     sudo -H -E yaourt the_silver_searcher
 
-
 	sudo -H -E pip install --upgrade pip
 	sudo -H -E pip install pygments
 fi
