@@ -1,1 +1,25 @@
+*xterm*utf8: 1
+
+*xterm*savelines: 9999
+
+! Molokai theme
 *xterm*background: #1d1f21
+*xterm*foreground: #d0d0d0
+*xterm*cursorColor: #d0d0d0
+
+*xterm*color0: #1d1f21
+*xterm*color1: #f92672
+*xterm*color2: #a6e22e
+*xterm*color3: #fd971f
+*xterm*color4: #1e90ff
+*xterm*color5: #9458ff
+*xterm*color6: #66d9ef
+*xterm*color7: #edd400
+*xterm*color8: #b294bb
+*xterm*color9: #cc6666
+*xterm*color10: #f92672
+*xterm*color11: #de935f
+*xterm*color12: #1e90ff
+*xterm*color13: #74b933
+*xterm*color14: #4277ad
+*xterm*color15: #ffffff
