@@ -2,6 +2,9 @@
 
 TERM=xterm-256color
 
+export no_proxy=localhost
+export LC_ALL=en_US.UTF-8
+
 #export PATH=""
 
 [ -f $PROFILEROOT/bash-common/.bashrc ] && . $PROFILEROOT/bash-common/.bashrc
