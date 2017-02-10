@@ -6,13 +6,13 @@ mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/.vim/ftplugin
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # Color schemes
-cd ~/.vim/colors
+cd ~/.vim/colors || exit -1
 if [ ! -f ~/.vim/colors/molokai.vim ]; then
     wget https://raw.githubusercontent.com/flazz/vim-colorschemes/master/colors/molokai.vim
 fi
 
 # And lets plugin !
-cd ~/.vim/bundle
+cd ~/.vim/bundle || exit -1
 git clone --depth=1 https://github.com/scrooloose/syntastic.git
 git clone --depth=1 https://github.com/vim-airline/vim-airline.git
 git clone --depth=1 https://github.com/tpope/vim-dispatch.git
@@ -23,6 +23,8 @@ git clone --depth=1 https://github.com/scrooloose/nerdcommenter.git
 git clone --depth=1 https://github.com/ctrlpvim/ctrlp.vim.git
 git clone --depth=1 https://github.com/FelikZ/ctrlp-py-matcher.git 
 git clone --depth=1 https://github.com/terryma/vim-multiple-cursors.git
+git clone --depth=1 https://github.com/jtratner/vim-flavored-markdown.git
+git clone --depth=1 https://github.com/fatih/vim-go.git
 
 # Filetype plugins ...
 git clone --depth=1 https://github.com/thekyz/vim-ftplugins.git ~/.vim/ftplugin

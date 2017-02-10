@@ -11,6 +11,7 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+export GOPATH=~/dev/go/
 export EDITOR=vim
 export WINEDITOR=$EDITOR
 export EDITOR1=$EDITOR
@@ -33,3 +34,4 @@ fi
 #NODE_PATH="$HOME/.node/lib/node_modules:$NODE_PATH"
 #MANPATH="$HOME/.node/share/man:$MANPATH"
 
+PATH="/usr/local/heroku/bin:$PATH"
