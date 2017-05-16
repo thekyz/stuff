@@ -1,6 +1,7 @@
 *xterm*utf8: 1
 
-*xterm*savelines: 9999
+*xterm*selectToClipboard: true
+*xterm*saveLines: 9999
 
 ! Molokai theme
 *xterm*background: #1d1f21
