@@ -3,11 +3,13 @@
 *xterm*savelines: 9999
 
 ! Molokai theme
-*xterm*background: #1d1f21
+!*xterm*background: #1d1f21
+*xterm*background: #000000
 *xterm*foreground: #d0d0d0
 *xterm*cursorColor: #d0d0d0
 
-*xterm*color0: #1d1f21
+*xterm*color0: #000000
+!*xterm*color0: #1d1f21
 *xterm*color1: #f92672
 *xterm*color2: #a6e22e
 *xterm*color3: #fd971f
