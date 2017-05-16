@@ -6,6 +6,10 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+if [ -e /etc/profile.d/proxy.sh ]; then
+    ./etc/profile.d/proxy.sh
+fi
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
