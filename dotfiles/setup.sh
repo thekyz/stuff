@@ -33,6 +33,10 @@ else
 
 	sudo -H -E pip install --upgrade pip
 	sudo -H -E pip install pygments
+
+    mkdir ~/apps
+    cd ~/apps || exit
+    git clone --depth=1 https://github.com/wertarbyte/autorandr
 fi
 
 # shellcheck source=/dev/null
