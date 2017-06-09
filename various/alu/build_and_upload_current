@@ -1,0 +1,34 @@
+#!/bin/bash
+
+repo_path=/repo/agarciam/sw-ms
+isam_ip=138.203.76.133
+dest=/tmp
+
+function build() {
+    _app=$1
+    ./build.sh ${repo_path} ${_app} || exit -1
+}
+
+function upload() {
+    _app=$1
+    _file=$2
+
+    file_path=${repo_path}/y/build/${_app}/${_file}
+    ./upload.sh ${isam_ip} ${file_path} ${dest} || exit -1
+}
+
+build yapi
+build tndd
+build blueprint/server
+#build blueprint/client
+
+upload yapi libyAPI.so
+upload yapi yipc.ini
+upload yapi config.ini
+upload tndd tndd_isam-reborn-cavium-srntd
+upload tndd/srnt-d-y tndd.ini
+upload yapi/examples ytime_example 
+upload blueprint/server blueprint_server_app_isam-reborn-cavium-srntd
+#upload blueprint/client blueprint_client_app_isam-reborn-cavium-srntd
+
+

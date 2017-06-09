@@ -1,0 +1,92 @@
+/**
+ * Blueprint application messages.
+ *
+ * This file is used to demonstrate both the usage of protobuf messages
+ * inside the blueprint client and servers applications as well as how
+ * to properly declare and document protobuf messages.
+ *
+ * Please try to follow the style used here when writing similar files
+ * for other applications, especially for documentation.
+ */
+
+syntax = "proto2";
+package blueprint;
+
+/**
+ * Represents a dummy item configuration
+ */
+message LineConfig {
+    required uint32 line_id = 1;            /// line identifier
+    required uint32 profile_id = 2;         /// profile identifier
+    optional uint32 bw_us = 3;              /// ?
+    optional uint32 bw_ds = 4;              /// ?
+
+    message BWProfile {
+      required string profile_name = 1;     /// name of the bandwith profile
+      required int32 vect_band = 2;         /// vectoring band information
+    }
+
+    repeated BWProfile bw_prof = 5;         /// bandwith profile data
+}
+
+/**
+ * Represents a dummy item state
+ */
+message LineState {
+    required uint32 id = 1;                 /// line identifier
+
+    enum State {
+        ON = 0;
+        OFF = 1;
+    }
+
+    required State state = 2;               /// line state
+}
+
+/**
+ * Request for line configuration information (client -> server)
+ */
+message GetLineConfigRequest {
+    required uint32 board = 1;              /// board identifier
+    repeated int32 line_ids = 2;            /// ids of the lines to get
+}
+
+/**
+ * Line configuration information (server -> client)
+ * Sent in response to a GetLineConfigRequest message
+ */
+message GetLineConfigResponse {
+    required uint32 board = 1;              /// board identifier
+    repeated LineConfig config = 2;         /// line configuration data
+}
+
+/**
+ * Request for line configuration setting (client -> server / no response)
+ */
+message SetLineConfigRequest {
+    required uint32 board = 1;              /// board identifier
+    repeated LineConfig config = 2;         /// the configuration to apply
+}
+
+/**
+ * Notification for line state changes (server -> client)
+ */
+message LineStateNotify {
+    required uint32 board = 1;              /// board identifier
+    repeated LineState line = 2;            /// line state data
+}
+
+/**
+ * Wrapper message
+ */
+message Wrapper {
+    oneof msg {
+        GetLineConfigRequest get_line_config_request = 1;
+        GetLineConfigResponse get_line_config_response = 2;
+
+        SetLineConfigRequest set_line_config_request = 3;
+
+        LineStateNotify line_state_notify = 4;
+    }
+}
+

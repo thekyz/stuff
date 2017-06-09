@@ -1,0 +1,237 @@
+#!/bin/python
+
+import shutil
+import argparse
+import bs4
+import urllib2
+import subprocess
+
+PRE_PULLME_REPORT_URL = 'http://devws011.be.alcatel-lucent.com:8888/pre-pullme.html'
+PULLME_REPORT_URL = 'http://devws011.be.alcatel-lucent.com:8888/pullme.html'
+BUILDME_REPORT_URL = 'http://devws034.be.alcatel-lucent.com:8080/job/Buildmeweb/HTML_Report/results.html'
+
+BUILDME_PRIORITIES = [
+  ('Username',  'User'),
+  ('Build',     'Build'),
+  ('Timestamp', 'Timest)amp'),
+  ('Release',   'Rel.'),
+  ('cppcheck',  'cppcheck')
+]
+
+class Colors(object):
+  BOLD = '\033[1m'
+  ENDC = '\033[0m'
+  GREEN ='\033[32m'
+  LBLUE ='\033[36m'
+  ORANGE ='\033[33m'
+  PINK ='\033[31m'
+  PURPLE ='\033[35m'
+  UNDERLINE = '\033[4m'
+  YELLOW ='\033[37m'
+
+def get_terminal_size():
+  default = (24,164)
+  try:
+    return subprocess.check_output(['stty', 'size'], stdout=open(os.devnull, 'wb')).split()
+  except:
+    return default
+
+def fetch(url):
+  response = urllib2.urlopen(url)
+  html = response.read()
+
+  return html
+
+def parse_pullme_requests(soup):
+  # print(soup)
+
+  headers_table = soup.find(id='pullme_logs').thead
+  headers = []
+  for column in headers_table.find_all('th'):
+    if column.parent.parent == headers_table:
+      headers.append(column.text)
+
+  # print(headers)
+
+  requests_table = soup.find(id='pullme_logs').tbody
+  requests = []
+  # print(requests_table)
+  for row in requests_table.find_all('tr'):
+    # print(row)
+    if row.parent == requests_table:
+      request = []
+      for column in row.find_all('td'):
+        if column.parent == row:
+          request.append(column.text)
+      # print(request)
+      requests.append(request)
+
+  return headers, requests
+
+def parse_buildme_requests(soup):
+  headers_table = soup.find(id='requests_table').thead
+  headers = []
+  for column in headers_table.find_all('td'):
+    if column.parent.parent == headers_table:
+      headers.append(column.text)
+
+  # print(headers)
+
+  requests_table = soup.find(id='requests_table').tbody
+  requests = []
+  for row in requests_table.find_all('tr'):
+    if row.parent == requests_table:
+      request = []
+      for column in row.find_all('td'):
+        if column.parent == row:
+          request.append(column.text)
+      # print(requ1est)
+      requests.append(request)
+
+  return headers, requests
+
+def print_request(request, headers, spacing):
+  term_columns = int(get_terminal_size()[1])
+
+  is_header = False
+  if request == headers:
+    is_header = True
+
+  columns = []
+  size = 0
+  for idx, data in enumerate(request):
+    column_color = ''
+    size = size + spacing[idx] + 3 # 3 chars for the separators
+    if size > term_columns:
+      break
+
+    if is_header:
+      column_color = Colors.BOLD
+      pass
+    elif 'Username' in headers[idx]:
+      column_color = Colors.ORANGE
+    elif 'STARTED' in data:
+      column_color = Colors.ORANGE
+    # elif 'QUEUED' in data:
+    #   column_color = Colors.YELLOW
+    elif 'SUC' in data or 'success' in data or 'pushed' in data:
+      column_color = Colors.GREEN
+    elif 'ERR' in data or 'DEPFAIL' in data:
+      column_color = Colors.PINK
+
+    columns.append(column_color + ' '.join(data.split()).strip().ljust(spacing[idx]) + Colors.ENDC)
+
+  return (' ' + Colors.LBLUE + '|' + Colors.ENDC + ' ').join(columns)
+
+class Parser(object):
+  def __init__(self, name, url):
+    self.name = name
+    self.url = url
+    self.headers = []
+    self.spacing = []
+    self.requests = []
+
+  def parse_entries(self, parse_method, limit_count=0, username=''):
+    try:
+      html_doc = fetch(self.url)
+      proper_html = ''
+      for line in html_doc.split():
+        line = line.replace('"/>', '">')
+        proper_html = proper_html + '\n' + line
+
+      soup = bs4.BeautifulSoup(proper_html, 'html.parser')
+
+      self.headers, self.requests = parse_method(soup)
+
+      self.spacing = []
+      for header in self.headers:
+        self.spacing.append(len(header))
+
+      requests_count = 0
+      for request in self.requests:
+        if not username or username in request[0]:
+          if limit_count and limit_count <= requests_count:
+            break
+
+          requests_count = requests_count + 1
+          for idx, column in enumerate(request):
+            if len(' '.join(column.split()).strip()) > self.spacing[idx]:
+              self.spacing[idx] = len(' '.join(column.split()).strip())
+    except:
+      self.headers = None
+      self.requests = None
+      self.spacing = None
+
+  def dump_entries(self, limit_count=0, no_headers=False, username='', no_colors=False):
+    print('\t[ ' + Colors.PURPLE + self.name + Colors.ENDC + ' ]')
+
+    if not self.requests:
+      print(Colors.PINK + '--------' + Colors.ENDC + ' Could not fetch/parse url: ' + Colors.ORANGE + self.url + Colors.ENDC)
+      return
+
+    if not no_headers:
+      print(print_request(self.headers, self.headers, self.spacing))
+
+    requests_count = 0
+    for request in self.requests:
+      if not username or username in request[0]:
+        if limit_count and limit_count <= requests_count:
+          break
+
+        requests_count = requests_count + 1
+
+        print(print_request(request, self.headers, self.spacing))
+
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--pre-pullme', type=int, default=-1, help='parse pre-pullme entries')
+  parser.add_argument('--buildme', type=int, default=-1, help='parse buildme entries')
+  parser.add_argument('--pullme', type=int, default=-1, help='parse pullme entries')
+  parser.add_argument('-H', '--no-headers', action='store_true', help='remove headers')
+  # parser.add_argument('-C', '--no-colors', action='store_true', help='remove coloring')
+  parser.add_argument('-u', '--username', action='store', help='name of user to look for (any by default, still applies the limit')
+  # parser.add_argument('-p', '--poll', action='store_true', help='if set, will poll each "poll" seconds')
+
+  args = parser.parse_args()
+
+  ###############
+
+  # args.pre_pullme = 1
+  # args.pullme = 1
+  # args.buildme = 2
+  # args.no_headers = True
+  # args.poll = 5
+  # args.no_colors = False
+  # args.username = 'agarciam'
+
+  ###############
+
+  pre_pullme_parser = Parser('Pre-pullme', PRE_PULLME_REPORT_URL + '/test')
+  pullme_parser = Parser('Pullme', PULLME_REPORT_URL)
+  buildme_parser = Parser('Buildme', BUILDME_REPORT_URL)
+
+  # Parsing
+
+  if args.pre_pullme != -1:
+    pre_pullme_parser.parse_entries(parse_pullme_requests, args.pre_pullme, args.username)
+
+  if args.pullme != -1:
+    pullme_parser.parse_entries(parse_pullme_requests, args.pullme, args.username)
+
+  if args.buildme != -1:
+    buildme_parser.parse_entries(parse_buildme_requests, args.buildme, args.username)
+
+  # Printing
+
+  if args.pre_pullme != -1:
+    pre_pullme_parser.dump_entries(args.pre_pullme, args.no_headers, args.username, args.no_colors)
+    # print('')
+
+  if args.pullme != -1:
+    pullme_parser.dump_entries(args.pullme, args.no_headers, args.username, args.no_colors)
+    # print('')
+
+  if args.buildme != -1:
+    buildme_parser.dump_entries(args.buildme, args.no_headers, args.username, args.no_colors)
+    # print('')
+
