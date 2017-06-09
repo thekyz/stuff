@@ -12,6 +12,12 @@ filetype off
 call pathogen#infect()
 filetype plugin indent on
 
+" shift-tab unindent
+" command mode
+nnoremap <S-Tab> <<
+" insert mode
+inoremap <S-Tab> <C-d>
+
 " CtrlP shortcuts
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP .'
@@ -23,6 +29,13 @@ let g:ctrlp_custom_ignore = {
 "let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
+let g:ycm_rust_src_path="~/dev/rust-master/src/"
+
+set shortmess+=c
+
+" TagBar toggle
+nnoremap <silent> <leader>b :TagbarToggle<CR>
+
 " NerdTree toggle
 nnoremap <C-b> :NERDTreeToggle<CR>
 
@@ -32,7 +45,8 @@ let NERDTreeIgnore = ['\.gcda$','\.gcno$','\.d$']
 
 let g:NERDTreeChDirMode = 2
 
-set switchbuf=usetab,newtab
+"set switchbuf=usetab,newtab
+set switchbuf=useopen
 
 set nocompatible
 set modelines=0
@@ -42,6 +56,10 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set nowrap
+set smarttab
+
+set list
+set listchars=tab:>-
 
 set encoding=utf-8
 set scrolloff=3
@@ -133,9 +151,6 @@ set wildignore+=lib
 
 let mapleader = ","
 
-"set list
-set listchars=tab:?\ ,eol:¬
-
 nnoremap ; :
 
 " Save files on loss of focus (not sure if i like this one after all ...)
@@ -150,12 +165,14 @@ augroup line_return
         \ endif
 augroup END
 
+let g:ackprg = 'ag --vimgrep'
+nnoremap <leader>a :Ack!
+
 " Clear trailing whitespaces
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Toggle [i]nvisible characters
 nnoremap <leader>l :set list!<CR>
-nnoremap <leader>a :Ack
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :so $MYVIMRC<cr>
@@ -236,4 +253,34 @@ highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
 
 " }}}
+
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md setlocal filetype=ghmarkdown
+augroup END
+
+filetype on
+autocmd FileType python nnoremap <buffer> <F9> :exec '!clear; python' shellescape(@%, 1)<cr>
+
+" cscope setup
+if has("cscope")
+    set csto=0                                                                             
+    set cst
+    set nocsverb
+    " add any database in current directory
+    if filereadable("cscope.out")
+    cs add cscope.out
+    " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+    cs add $CSCOPE_DB
+    endif
+    set csverb
+endif
+
+" jump to a function declaration
+nmap <silent> <F10> :cs find s <C-R>=expand("<cword>")<CR><CR>1<CR><CR>
+" jump to a function declaration
+nmap <silent> <F11> :cs find g <C-R>=expand("<cword>")<CR><CR>
+" show a list of where function is called
+nmap <silent> <F12> :cs find c <C-R>=expand("<cword>")<CR><CR>
 
