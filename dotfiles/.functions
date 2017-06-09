@@ -9,13 +9,13 @@ function lmv() {
 
 # Create a new directory and enter it
 function md() {
-	mkdir -p "$@" && cd "$@"
+    mkdir -p "$@" && cd "$@"
 }
 
 
 # List all files, long format, colorized, permissions in octal
-function la(){
- 	ls -l  "$@" | awk '
+function la() {
+    ls -l  "$@" | awk '
     {
       k=0;
       for (i=0;i<=8;i++)
@@ -26,8 +26,24 @@ function la(){
     }'
 }
 
-function hgm(){
+function hgm() {
   hg st -q | cut -c3- | tr '\n' ' '
+}
+
+function treesize() {
+    du -k --max-depth=1 | sort -nr | awk '
+        BEGIN {
+            split("KB,MB,GB,TB", Units, ",");
+        }
+        {
+            u = 1;
+            while ($1 >= 1024) {
+                $1 = $1 / 1024;
+                u += 1
+            }
+            $1 = sprintf("%.1f %s", $1, Units[u]);
+        }
+    '
 }
 
 #### Nokia
@@ -59,7 +75,7 @@ function sshi() {
       # Let's try connecting via ssh ...
       sshpass -p "2x2=4" ssh -p 2222 root@"$_iip" -q -o StrictHostKeyChecking=no -o ConnectTimeout=1 -o ConnectionAttempts=1 exit > /dev/null
       _rc=$?
-      
+
       if [ $_rc -eq 0 ]; then
         # Finnaly connected !
         break
@@ -86,8 +102,8 @@ function smakebl() {
   else
     jmake BOARD_LIST=$2 BUILDROOT_BASE_DIR_BETA1=/repo/agarciam/buildroot-cache BR2_DL_DIR=/repo/agarciam/buildroot-cache/dl LOCAL_BUILD=1 BUILDROOT_KEEP_MULTIPLE_REVS=1 IVY=ivy -j9 VERS="$_vers" 2>&1 | tee buildlog_"$_vers".log | grep -e ">>>"
   fi
-  
-  
+
+
   cat buildlog_$_vers.log | grep "\*\*\*" -A 5
   _rc=$?
   if [ $_rc -ne 0 ]; then
@@ -97,6 +113,7 @@ function smakebl() {
 
   return 1
 }
+
 function smake() {
   _vers=$1
 
@@ -105,8 +122,8 @@ function smake() {
   else
     jmake $2 BUILDROOT_BASE_DIR_BETA1=/repo/agarciam/buildroot-cache BR2_DL_DIR=/repo/agarciam/buildroot-cache/dl LOCAL_BUILD=1 BUILDROOT_KEEP_MULTIPLE_REVS=1 IVY=ivy -j9 VERS="$_vers" 2>&1 | tee buildlog_"$_vers".log | grep -e ">>>"
   fi
-  
-  
+
+
   cat buildlog_$_vers.log | grep "\*\*\*" -A 5
   _rc=$?
   if [ $_rc -ne 0 ]; then
