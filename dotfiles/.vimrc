@@ -45,6 +45,9 @@ let NERDTreeIgnore = ['\.gcda$','\.gcno$','\.d$']
 
 let g:NERDTreeChDirMode = 2
 
+let g:airline_powerline_fonts = 1
+"let g:Powerline_symbols = 'unicode'
+
 "set switchbuf=usetab,newtab
 set switchbuf=useopen
 
@@ -264,7 +267,7 @@ autocmd FileType python nnoremap <buffer> <F9> :exec '!clear; python' shellescap
 
 " cscope setup
 if has("cscope")
-    set csto=0                                                                             
+    set csto=0
     set cst
     set nocsverb
     " add any database in current directory
