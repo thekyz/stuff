@@ -3,16 +3,16 @@
 on_arch=$(uname -r | grep ARCH)
 
 if [ -z "$on_arch" ]; then
-	su -c "apt-get install sudo"
-	export EDITOR=vi
-	su -c "visudo"
+    su -c "apt-get install sudo"
+    export EDITOR=vi
+    su -c "visudo"
 
-	sudo apt-get remove vim-tiny -y
-	sudo apt-get update -y
-	sudo apt-get install vim git python vim-gnome python-pip curl silversearcher-ag shellcheck -y
-	sudo pip install pygments
+    sudo apt-get remove vim-tiny -y
+    sudo apt-get update -y
+    sudo apt-get install vim git python vim-gnome python-pip curl silversearcher-ag shellcheck -y
+    sudo pip install pygments
 else
-	sudo -H -E pacman -Sy vim git python python-pip curl shellcheck wget base-devel
+    sudo -H -E pacman -Sy vim git python python-pip curl shellcheck wget base-devel unzip
 
     # install yaourt
     devdir=~/dev
@@ -29,10 +29,11 @@ else
     makepkg -si
 
     # if this does not work add : Defaults env_keep += "http_proxy https_proxt ftp_proxy" to visudo
-    sudo -H -E yaourt the_silver_searcher
+    yaourt -S the_silver_searcher
+    yaourt -S i3-gaps-git
 
-	sudo -H -E pip install --upgrade pip
-	sudo -H -E pip install pygments
+    sudo -H -E pip install --upgrade pip
+    sudo -H -E pip install pygments
 
     mkdir ~/apps
     cd ~/apps || exit
