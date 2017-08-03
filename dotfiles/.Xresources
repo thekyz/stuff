@@ -1,6 +1,61 @@
 *xterm*utf8: 1
+*xterm*locale: true
+
+*xterm.vt100.backarrowKey: false
+*xterm.ttyModes: erase ^?
+
+!URxvt*font: xft:DejaVuSansMono Nerd Font:size=8
+URxvt*font: xft:LiterationMonoPowerline Nerd Font:size=8
+!URxvt*font: xft:FuraCode Nerd Font:size=8
+URxvt*scrollBar: false
+!URxvt*terminalName: xterm-256color
+
+!URxvt*font: xft:Monaco:pixelsize=9
+!URxvt*boldFont: xft:Monaco:bold:pixelsize=9
+URxvt*letterSpace: -2
+
+URxvt*keysym.Home:       \033[1~
+URxvt*keysym.End:        \033[4~
+
+!-- Xft settings -- !
+Xft.dpi:                96
+Xft.autohint:           0
+Xft.antialias:          true
+Xft.rgba:               none
+Xft.hinting:            true
+Xft.lcdfilter:          lcddefault
+Xft.hintstyle:          hintsfull
+
+!*xterm*faceName: LiterationMonoPowerline Nerd Font
+!*xterm*faceName: Droid Sans Mono for Powerline
+!*xterm*faceSize: 8
 
 *xterm*savelines: 9999
+*xterm*selectToClipboard: 1
+
+! Molokai theme
+!*urxvt*background: #1d1f21
+*urxvt*background: #000000
+*urxvt*foreground: #d0d0d0
+*urxvt*cursorColor: #d0d0d0
+
+*urxvt*color0: #000000
+!*urxvt*color0: #1d1f21
+*urxvt*color1: #f92672
+*urxvt*color2: #a6e22e
+*urxvt*color3: #fd971f
+*urxvt*color4: #1e90ff
+*urxvt*color5: #9458ff
+*urxvt*color6: #66d9ef
+*urxvt*color7: #edd400
+*urxvt*color8: #b294bb
+*urxvt*color9: #cc6666
+*urxvt*color10: #f92672
+*urxvt*color11: #de935f
+*urxvt*color12: #1e90ff
+*urxvt*color13: #74b933
+*urxvt*color14: #4277ad
+*urxvt*color15: #ffffff
 
 ! Molokai theme
 !*xterm*background: #1d1f21
