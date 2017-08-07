@@ -1,0 +1,17 @@
+Description='Automatically generated profile by wifi-menu'
+Interface=wlp2s0
+Connection=wireless
+Security=wpa-configsection
+ESSID=WLAN-NXP
+IP=dhcp
+WPAConfigSection=(
+	'scan_ssid=1'
+	'ssid="WLAN-NXP"'
+	'key_mgmt=WPA-EAP'
+	'eap=TLS'
+	'identity="alexandregarciamayans@nxp.com"'
+        'ca_cert="/home/thekyz/.ssl/ca.pem"'
+        'client_cert="/home/thekyz/.ssl/user.pem"'
+	'private_key="/home/thekyz/.ssl/nxf31746-wifi.cert.pfx"'
+	'private_key_passwd="azpenuza"'
+)
