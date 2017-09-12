@@ -70,6 +70,15 @@ set switchbuf=useopen
 set nocompatible
 set modelines=0
 
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
