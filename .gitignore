@@ -1,5 +1,6 @@
 *.pyc
 *.o
+.DS_Store
 
 zmq_client
 zmq_server
