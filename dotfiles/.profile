@@ -24,11 +24,7 @@ export echo_dot=no
 export STDENV2=yes
 export SHELL=/bin/bash
 
-if [ -e /usr/share/terminfo/x/xterm-256color  ]; then
-    export TERM='xterm-256color'
-else
-    export TERM='xterm-color'
-fi
+export TERM='xterm-256color'
 
 if [ -e /ap/local/env/profiles/.profile.common ]; then
     . /ap/local/env/profiles/.profile.common
@@ -39,3 +35,5 @@ fi
 #MANPATH="$HOME/.node/share/man:$MANPATH"
 
 PATH="/usr/local/heroku/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

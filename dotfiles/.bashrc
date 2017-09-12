@@ -8,16 +8,12 @@ export LC_ALL=en_US.UTF-8
 #export PATH=""
 
 [ -f $PROFILEROOT/bash-common/.bashrc ] && . $PROFILEROOT/bash-common/.bashrc
+[ -f $(brew --prefix)/etc/bash_completion ] && source $(brew --prefix)/etc/bash_completion
 
 for file in ~/.{bash_prompt,extra,exports,aliases,functions}; do
     [ -r "$file" ] && source "$file"
 done
 unset file
-
-# to help sublimelinter etc with finding my PATHS
-#case $- in
-#   *i*) source ~/.extra
-#esac
 
 # timestamps for later analysis. www.debian-administration.org/users/rossen/weblog/1
 export HISTTIMEFORMAT='%F %T '

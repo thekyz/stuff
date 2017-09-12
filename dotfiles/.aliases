@@ -16,7 +16,8 @@ alias tmux='tmux -2'
 alias mq='hg -R $(hg root)/.hg/patches'
 
 # ls options: A = include hidden (but not . or ..), F = put `/` after folders, h = byte unit suffixes
-alias ls='gls -AFh ${colorflag} --group-directories-first'
+#alias ls='gls -AFh ${colorflag} --group-directories-first'
+alias ls='gls -AFh ${colorflag}'
 alias lsd='ls -l | grep "^d"' # only directories
 #    `la` is defined in .functions
 
@@ -32,7 +33,7 @@ alias ag='ag -f --hidden --ignore-dir=.hg --ignore-dir=.git --ignore-dir=.svn --
 alias isamag='ag -f --hidden --ignore-dir=.hg --ignore-dir=.git --ignore-dir=.svn --silent --ignore *.map --ignore *_Gen.cpp --ignore *.cmd --ignore *.mem --ignore *.link'
 
 # `cat` with beautiful colors. requires: sudo pip install Pygments
-alias cat='pygmentize -O style=monokai -f console256 -g'
+#alias cat='pygmentize -O style=monokai -f console256 -g'
 
 alias ec='vim ~/.bashrc'
 alias sc='source ~/.bashrc'
