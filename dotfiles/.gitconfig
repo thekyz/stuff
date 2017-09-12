@@ -1,4 +1,6 @@
 [alias]
+    root = rev-parse --show-toplevel
+
     lg = !"git lg1"
     lg1 = !"git lg1-specific --all"
     lg2 = !"git lg2-specific --all"
@@ -21,6 +23,8 @@
     conflictstyl = diff3
 [mergetool "vimdiff"]
     cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[core]
+    editor = vim
 [http]
     ;proxy = http://emea.nics.nxp.com:8080
 [https]
