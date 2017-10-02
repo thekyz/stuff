@@ -304,9 +304,13 @@ if has("cscope")
     set csverb
 endif
 
+nmap <silent> <F9> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+  \:!cscope -b -i cscope.files -f cscope.out<CR>
+  \:cs reset<CR>
+
 " jump to a function declaration
 nmap <silent> <F10> :cs find s <C-R>=expand("<cword>")<CR><CR>1<CR><CR>
-" jump to a function declaration
+" jump to a function definition
 nmap <silent> <F11> :cs find g <C-R>=expand("<cword>")<CR><CR>
 " show a list of where function is called
 nmap <silent> <F12> :cs find c <C-R>=expand("<cword>")<CR><CR>
