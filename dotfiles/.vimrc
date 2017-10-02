@@ -4,6 +4,9 @@ if has("win32")
     language English_United States
 endif
 
+if has("nvim")
+endif
+
 " }}}
 "
 " Basic stuff and plugins {{{
@@ -11,6 +14,18 @@ endif
 filetype off
 call pathogen#infect()
 filetype plugin indent on
+
+if ! has('gui_running')
+  set ttimeoutlen=10
+  augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+  augroup END
+endif
+
+set re=1
+set lazyredraw
 
 " shift-tab unindent
 " command mode
@@ -22,7 +37,7 @@ inoremap <S-Tab> <C-d>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP .'
 let g:ctrlp_working_path_mode = 'rw'
-let g:ctrlp_custom_ignore = {
+let g:ctrlp_ccstom_ignore = {
     \ 'dir': '\v[\/]\.(git|hg|svn)$',
     \ 'file': '\v\.((exe|so|dll|a|o|gcno|gcda|d)$|(nostrip))'
     \ }
@@ -46,6 +61,7 @@ let NERDTreeIgnore = ['\.gcda$','\.gcno$','\.d$']
 let g:NERDTreeChDirMode = 2
 
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 "let g:Powerline_symbols = 'unicode'
 
 "set switchbuf=usetab,newtab
@@ -78,6 +94,7 @@ set ttyfast
 set mouse=a
 set ruler
 set backspace=indent,eol,start
+" always display status bar (0 never, 1 only more than 1 window, 2 always)
 set laststatus=2
 set relativenumber
 set number
@@ -154,7 +171,7 @@ set wildignore+=lib
 
 let mapleader = ","
 
-nnoremap ; :
+"nnoremap ; :
 
 " Save files on loss of focus (not sure if i like this one after all ...)
 "au FocusLost * :wa
@@ -177,11 +194,14 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " Toggle [i]nvisible characters
 nnoremap <leader>l :set list!<CR>
 nnoremap <leader>w <C-w>v<C-w>l
+
+" edit vimrc
 nnoremap <leader>ev :e $MYVIMRC<cr>
+" source vimrc
 nnoremap <leader>sv :so $MYVIMRC<cr>
 
 " Toggle line numbers
-nnoremap <leader>n :setlocal number!<cr>
+nnoremap <leader>n :setlocal number!<cr>:setlocal relativenumber!<cr>
 
 " Tabs
 nnoremap <leader>[ :tabprev<cr>
@@ -193,11 +213,6 @@ nnoremap <cr> o<esc>
 
 " Clean trailing whitespace
 nnoremap <leader>ww mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-
-" MBE mappings
-nnoremap <leader>mbe :MBEOpen<cr>
-nnoremap <leader>mbc :MBEClose<cr>
-nnoremap <leader>mbt :MBEToggle<cr>
 
 " Nerd commenter remap
 nnoremap <leader>/ :call NERDComment(0,"toggle")<CR>
@@ -220,7 +235,7 @@ nnoremap / /\v
 vnoremap / /\v
 set ignorecase
 set smartcase
-set gdefault
+"set gdefault
 set incsearch
 set showmatch
 set hlsearch
