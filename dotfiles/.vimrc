@@ -90,7 +90,7 @@ set list
 set listchars=tab:>-
 
 set encoding=utf-8
-set scrolloff=3
+"set scrolloff=3
 set autoindent
 set showmode
 set showcmd
