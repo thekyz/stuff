@@ -12,7 +12,7 @@ if [ -z "$on_arch" ]; then
     sudo apt-get install vim git python vim-gnome python-pip curl silversearcher-ag shellcheck -y
     sudo pip install pygments
 else
-    sudo -H -E pacman -Sy vim git python python-pip curl shellcheck wget base-devel unzip
+    sudo -H -E pacman -Sy vim git python python-pip curl wget base-devel unzip
 
     # install yaourt
     devdir=~/dev
@@ -36,13 +36,12 @@ else
     sudo -H -E pip install pygments
 
     mkdir ~/apps
-    cd ~/apps || exit
-    git clone --depth=1 https://github.com/wertarbyte/autorandr
 fi
 
 # shellcheck source=/dev/null
 source ~/stuff/dotfiles/setup_dotfiles.sh
-#source ~/.bashrc
+# shellcheck source=/dev/null
+source ~/.bashrc
 # shellcheck source=/dev/null
 source ~/stuff/dotfiles/setup_vim.sh
 
