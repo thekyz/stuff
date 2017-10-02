@@ -42,6 +42,7 @@
 [options]
     #font = Tamzen for Powerline 8
     font = Misc Fixed 8
+    #font = gohup 8
     scrollback_lines = 10000
     search_wrap = true
     allow_bold = true
