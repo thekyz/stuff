@@ -16,8 +16,8 @@ cd ~/.vim/bundle || exit -1
 git clone --depth=1 https://github.com/scrooloose/syntastic.git
 git clone --depth=1 https://github.com/vim-airline/vim-airline.git
 git clone --depth=1 https://github.com/tpope/vim-dispatch.git
-git clone --depth=1 https://github.com/wincent/ferret.git
-git clone --depth=1 https://github.com/tpope/vim-surround.git
+#git clone --depth=1 https://github.com/wincent/ferret.git
+#git clone --depth=1 https://github.com/tpope/vim-surround.git
 git clone --depth=1 https://github.com/scrooloose/nerdtree.git
 git clone --depth=1 https://github.com/scrooloose/nerdcommenter.git
 git clone --depth=1 https://github.com/ctrlpvim/ctrlp.vim.git
