@@ -29,9 +29,9 @@ set lazyredraw
 
 " shift-tab unindent
 " command mode
-nnoremap <S-Tab> <<
+"nnoremap <S-Tab> <<
 " insert mode
-inoremap <S-Tab> <C-d>
+"inoremap <S-Tab> <C-d>
 
 " CtrlP shortcuts
 let g:ctrlp_map = '<c-p>'
