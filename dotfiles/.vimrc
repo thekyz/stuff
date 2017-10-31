@@ -48,12 +48,6 @@ let g:ycm_rust_src_path="~/dev/rust-master/src/"
 
 set shortmess+=c
 
-" TagBar toggle
-nnoremap <silent> <leader>b :TagbarToggle<CR>
-
-" NerdTree toggle
-nnoremap <C-b> :NERDTreeToggle<CR>
-
 let g:NERDTreeChDirMode = 2
 
 let NERDTreeIgnore = ['\.gcda$','\.gcno$','\.d$']
@@ -179,6 +173,9 @@ set wildignore+=lib
 " Shortcuts {{{
 
 let mapleader = ","
+
+" NerdTree toggle
+nnoremap <leader>b :NERDTreeToggle<CR>
 
 "nnoremap ; :
 
