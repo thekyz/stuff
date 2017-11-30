@@ -13,7 +13,6 @@
 #include <nanomsg/pubsub.h>
 
 #include "net.h"
-#include "log.h"
 #include "broker.h"
 #include "list.h"
 #include "connection.h"
