@@ -2,9 +2,9 @@
     root = rev-parse --show-toplevel
 
     lg = !"git lg1"
-    lg1 = !"git lg1-specific --all"
-    lg2 = !"git lg2-specific --all"
-    lg3 = !"git lg3-specific --all"
+    lg1 = !"git lg1-specific "
+    lg2 = !"git lg2-specific "
+    lg3 = !"git lg3-specific "
 
     wip = log --oneline --abbrev-commit --graph --decorate
     lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
@@ -26,8 +26,8 @@
 [core]
     editor = vim
 [http]
-    ;proxy = http://emea.nics.nxp.com:8080
+    ;proxy = http://emea.nics.nxp.com:8080/
 [https]
-    ;proxy = http://emea.nics.nxp.com:8080
+    ;proxy = http://emea.nics.nxp.com:8080/
 [difftool]
     prompt = false
