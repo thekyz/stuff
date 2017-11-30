@@ -1,0 +1,5 @@
+FROM debian:stretch
+
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y g++ make cmake gcc bash vim strace gdb git
+    
