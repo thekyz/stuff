@@ -125,7 +125,7 @@ endif
 " Color scheme and GUI {{{
 
 syntax on
-set background=dark
+"set background=dark
 colorscheme molokai
 
 " Highlight VCS conflict markers
@@ -308,7 +308,7 @@ nmap <silent> <F9> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -i
 " jump to a function declaration
 nmap <silent> <F10> :cs find s <C-R>=expand("<cword>")<CR><CR>1<CR><CR>
 " jump to a function definition
-nmap <silent> <F11> :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <silent> <F9> :cs find g <C-R>=expand("<cword>")<CR><CR>
 " show a list of where function is called
 nmap <silent> <F12> :cs find c <C-R>=expand("<cword>")<CR><CR>
 
