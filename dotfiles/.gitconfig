@@ -17,12 +17,14 @@
 [push]
     default = simple
 [diff]
-    tool = vimdiff
+    tool = opendiff
 [merge]
     tool = vimdiff
     conflictstyl = diff3
 [mergetool "vimdiff"]
     cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[mergetool "opendiff"]
+    cmd = /usr/bin/opendiff $LOCAL $REMOTE -ancestor $BASE -merge $MERGED
 [core]
     editor = vim
 [http]
@@ -31,3 +33,5 @@
     ;proxy = http://emea.nics.nxp.com:8080/
 [difftool]
     prompt = false
+[rerere]
+    enabled = true
