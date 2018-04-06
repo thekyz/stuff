@@ -23,6 +23,7 @@ export SRC_EDITOR=vim
 export echo_dot=no
 export STDENV2=yes
 export SHELL=/bin/bash
+export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 
 export TERM='xterm-256color'
 
