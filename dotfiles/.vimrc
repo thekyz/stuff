@@ -33,6 +33,8 @@ set lazyredraw
 " insert mode
 "inoremap <S-Tab> <C-d>
 
+set colorcolumn=140
+
 " CtrlP shortcuts
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP .'
@@ -275,6 +277,8 @@ highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
+
+let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
 
 " }}}
 
