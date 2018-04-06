@@ -1,0 +1,20 @@
+FROM archlinux/base
+
+RUN rm -fr /etc/pacman.d/gnupg && \
+    pacman-key --init && \
+    pacman-key --populate archlinux && \
+     pacman -Syu --noconfirm
+
+RUN pacman -S --noconfirm vim git nodejs npm python2
+
+RUN npm i -g npm@5.6.0 && \
+    npm config set user 0 && \
+    npm config set unsafe-perm true
+
+RUN npm i -g @angular/cli
+
+RUN mkdir /w && \
+    useradd -d /w -u 501 ngu && \
+    chown 501 /w
+
+EXPOSE 3000
