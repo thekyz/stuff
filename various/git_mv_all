@@ -1,0 +1,10 @@
+#!/bin/bash
+
+src=$1
+tgt=$2
+
+for f in "$src"*; do
+    [[ -e $f ]] || breal
+    echo git mv "$f" "${f//$src/$tgt}"
+    git mv "$f" "${f//$src/$tgt}"
+done
