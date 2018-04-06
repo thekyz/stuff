@@ -1,0 +1,6 @@
+#!/bin/bash
+
+src=$1
+tgt=$2
+
+grep -lR --null  -e "$src" . | xargs -n 1 -0 -I"{}"  sed -i.bak s/"$1"/"$2"/g "{}"
