@@ -24,6 +24,8 @@ export echo_dot=no
 export STDENV2=yes
 export SHELL=/bin/bash
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 export TERM='xterm-256color'
 
@@ -38,3 +40,5 @@ fi
 PATH="/usr/local/heroku/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+export PATH="$HOME/.cargo/bin:$PATH"

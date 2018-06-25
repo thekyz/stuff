@@ -12,7 +12,7 @@ endif
 " Basic stuff and plugins {{{
 
 filetype off
-call pathogen#infect()
+"call pathogen#infect()
 filetype plugin indent on
 
 if ! has('gui_running')
@@ -27,6 +27,9 @@ endif
 set re=1
 set lazyredraw
 
+" vim fugitive force vertical split on diff
+set diffopt+=vertical
+
 " shift-tab unindent
 " command mode
 "nnoremap <S-Tab> <<
@@ -34,6 +37,9 @@ set lazyredraw
 "inoremap <S-Tab> <C-d>
 
 set colorcolumn=140
+
+let g:ale_linters = { 'python': ['flake8'] }
+"let g:ale_linters_explicit = 1
 
 " CtrlP shortcuts
 let g:ctrlp_map = '<c-p>'
@@ -44,7 +50,7 @@ let g:ctrlp_ccstom_ignore = {
     \ 'file': '\v\.((exe|so|dll|a|o|gcno|gcda|d)$|(nostrip))'
     \ }
 "let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+"let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 let g:ycm_rust_src_path="~/dev/rust-master/src/"
 
@@ -129,6 +135,7 @@ endif
 syntax on
 "set background=dark
 colorscheme molokai
+"colorscheme fruchtig
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -256,29 +263,36 @@ vnoremap <tab> %
 
 " }}}
 "
-" Syntastic {{{
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_loc_list_height = 5
-"let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-
-"let g:syntastic_error_symbol = '?'
-"let g:syntastic_style_error_symbol = '??'
-"let g:syntastic_warning_symbol = '??'
-"let g:syntastic_style_warning_symbol = '??'
-
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
-
-let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
+"" Syntastic {{{
+"
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_loc_list_height = 5
+""let g:syntastic_auto_loc_list = 0
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 1
+"
+""let g:syntastic_error_symbol = '?'
+""let g:syntastic_style_error_symbol = '??'
+""let g:syntastic_warning_symbol = '??'
+""let g:syntastic_style_warning_symbol = '??'
+"
+"highlight link SyntasticErrorSign SignColumn
+"highlight link SyntasticWarningSign SignColumn
+"highlight link SyntasticStyleErrorSign SignColumn
+"highlight link SyntasticStyleWarningSign SignColumn
+"
+"let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
+ 
+" fix mouse not working past 220th column
+"if has("mouse_sgr")
+    "set ttymouse=sgr
+"else
+    "set ttymouse=xterm2
+"end
 
 " }}}
 

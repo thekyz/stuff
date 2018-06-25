@@ -1,42 +1,43 @@
 #!/bin/bash
 
-on_arch=$(uname -r | grep ARCH)
+case $(uname) in
+    "Linux")
+        sudo -H -E pacman -Sy vim git python python-pip curl wget base-devel unzip
 
-if [ -z "$on_arch" ]; then
-    su -c "apt-get install sudo"
-    export EDITOR=vi
-    su -c "visudo"
+        # install yaourt
+        devdir=~/dev
+        mkdir "$devdir"
 
-    sudo apt-get remove vim-tiny -y
-    sudo apt-get update -y
-    sudo apt-get install vim git python vim-gnome python-pip curl silversearcher-ag shellcheck -y
-    sudo pip install pygments
-else
-    sudo -H -E pacman -Sy vim git python python-pip curl wget base-devel unzip
+        cd "$devdir" || exit
+        git clone https://aur.archlinux.org/package-query.git
+        cd package-query || exit
+        makepkg -si
 
-    # install yaourt
-    devdir=~/dev
-    mkdir "$devdir"
+        cd "$devdir" || exit
+        git clone https://aur.archlinux.org/yaourt.git
+        cd yaourt || exit
+        makepkg -si
 
-    cd "$devdir" || exit
-    git clone https://aur.archlinux.org/package-query.git
-    cd package-query || exit
-    makepkg -si
+        # if this does not work add : Defaults env_keep += "http_proxy https_proxt ftp_proxy" to visudo
+        yaourt -S the_silver_searcher
+        yaourt -S i3-gaps-git
 
-    cd "$devdir" || exit
-    git clone https://aur.archlinux.org/yaourt.git
-    cd yaourt || exit
-    makepkg -si
+        sudo -H -E pip install --upgrade pip
+        sudo -H -E pip install pygments
 
-    # if this does not work add : Defaults env_keep += "http_proxy https_proxt ftp_proxy" to visudo
-    yaourt -S the_silver_searcher
-    yaourt -S i3-gaps-git
-
-    sudo -H -E pip install --upgrade pip
-    sudo -H -E pip install pygments
-
-    mkdir ~/apps
-fi
+        mkdir ~/apps
+        ;;
+    "Darwin")
+        xcode-select --install
+        # install brew
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        brew doctor
+        brew install caskroom/cask/brew-cask
+        ;;
+    *)
+        echo "--- unsupported system ..." | exit 1
+        ;;
+esac
 
 # shellcheck source=/dev/null
 source ~/stuff/dotfiles/setup_dotfiles.sh
@@ -44,4 +45,3 @@ source ~/stuff/dotfiles/setup_dotfiles.sh
 source ~/.bashrc
 # shellcheck source=/dev/null
 source ~/stuff/dotfiles/setup_vim.sh
-

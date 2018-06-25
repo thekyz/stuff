@@ -34,7 +34,7 @@ function _git_prompt() {
 
 function _prompt_command() {
     PROMPT_DIRTRIM=3
-    PS1='\[$PINK\]\u\[$LBLUE\]@\[$PURPLE\]\h`_git_prompt`\[$PINK\]|\[$GREEN\]\w\[$PINK\]|\[$RESET\] '
+    PS1='\[$PINK\]\u\[$LBLUE\]@\[$PURPLE\]\h\[$PINK\]|\[$GREEN\]\w\[$PINK\]|\[$RESET\] '
 }
 
 PROMPT_COMMAND=_prompt_command

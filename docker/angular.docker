@@ -17,4 +17,6 @@ RUN mkdir /w && \
     useradd -d /w -u 501 ngu && \
     chown 501 /w
 
+RUN pacman -S --noconfirm cmake gcc make
+
 EXPOSE 3000
