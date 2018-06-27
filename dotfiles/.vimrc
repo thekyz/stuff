@@ -36,7 +36,7 @@ set diffopt+=vertical
 " insert mode
 "inoremap <S-Tab> <C-d>
 
-set colorcolumn=140
+"set colorcolumn=140
 
 let g:ale_linters = { 'python': ['flake8'] }
 "let g:ale_linters_explicit = 1
