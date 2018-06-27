@@ -3,9 +3,8 @@
 exec --no-startup-id dunst
 exec --no-startup-id compton
 #exec --no-startup-id feh --bg-scale /home/thekyz/dev/stuff/walls/wall3.jpg 
-exec --no-startup-id nitrogen --head=0 --set-zoom-fill /home/thekyz/dev/stuff/walls/wall3.jpg
-exec --no-startup-id nitrogen --head=1 --set-zoom-fill /home/thekyz/dev/stuff/walls/wall3.jpg
-exec xautolock -time 15 -locker 'i3lock -c 000000'
+exec --no-startup-id nitrogen --head=0 --set-zoom-fill /home/thekyz/dev/stuff/walls/wall3.png
+#exec xautolock -time 15 -locker 'i3lock -c 000000'
 
 set $mod Mod1
 
