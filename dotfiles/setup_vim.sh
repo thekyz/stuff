@@ -5,7 +5,7 @@ mkdir -p ~/.vim/pack/git-plugins/start ~/.vim/colors
 # Color schemes
 cd ~/.vim/colors || exit -1
 if [ ! -f ~/.vim/colors/molokai.vim ]; then
-    wget https://raw.githubusercontent.com/flazz/vim-colorschemes/master/colors/molokai.vim
+    ln -s ~/dev/stuff/molokai.vim .
 fi
 
 # And lets plugin !
@@ -19,4 +19,3 @@ git clone --depth=1 https://github.com/w0rp/ale.git
 
 # Filetype plugins ...
 git clone --depth=1 https://github.com/thekyz/vim-ftplugins.git ~/.vim/ftplugin
-
