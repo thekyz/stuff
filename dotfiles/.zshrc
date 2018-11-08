@@ -1,5 +1,4 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/thekyz/.oh-my-zsh"
@@ -61,8 +60,8 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git
   zsh-autosuggestions
-  zsh-history-substring-search
   zsh-syntax-highlighting
+  zsh-history-substring-search
 )
 
 # fix background issues with highlighting plugin
@@ -83,7 +82,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 # Do not record an entry that was just recorded again.
 setopt HIST_IGNORE_DUPS
 # Delete old recorded entry if new entry is a duplicate.
-#setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 # Do not display a line previously found.
 setopt HIST_FIND_NO_DUPS
 # Do not record an entry starting with a space.
@@ -97,7 +96,8 @@ setopt HIST_VERIFY
 # Beep when accessing nonexistent history.
 #setopt HIST_BEEP
 
-export PAGER=""
+export LESS="-FXR"
+export PAGER=less
 
 export LANG=en_US.UTF-8
 
@@ -113,8 +113,26 @@ alias ec="vim ~/.zshrc"
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
+# switch to vim mode
+bindkey -v
+
+export KEYTIMEOUT=1
+
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
 zplug 'simnalamburt/shellder', as:theme
 if ! zplug check; then
     zplug install
 fi
 zplug load
+
+precmd() { RPROMPT="" }
+function zle-line-init zle-keymap-select {
+   VIM_PROMPT="%{$fg_bold[yellow]%} [% N]%  %{$reset_color%}"
+   RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+   zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
