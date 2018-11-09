@@ -5,7 +5,7 @@ mkdir -p ~/.vim/pack/git-plugins/start ~/.vim/colors
 # Color schemes
 cd ~/.vim/colors || exit -1
 if [ ! -f ~/.vim/colors/molokai.vim ]; then
-    ln -s ~/dev/stuff/molokai.vim .
+    ln -s ~/dev/stuff/vim/molokai.vim .
 fi
 
 # And lets plugin !
