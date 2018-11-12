@@ -23,3 +23,7 @@ A lot of people have stuff, this is mine.
 ## key value stores
 
 * etcd
+
+## live editors
+
+* md/latex <https://github.com/josephernest/writing>
