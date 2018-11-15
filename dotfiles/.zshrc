@@ -1,4 +1,5 @@
-export PATH=$HOME/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/go/bin:$PATH
+export PATH=$(go env GOPATH)/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/thekyz/.oh-my-zsh"
@@ -100,6 +101,7 @@ export LESS="-FXR"
 export PAGER=less
 
 export LANG=en_US.UTF-8
+export GOPATH=$HOME/dev/go
 
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
