@@ -12,7 +12,6 @@ endif
 " Basic stuff and plugins {{{
 
 filetype off
-"call pathogen#infect()
 filetype plugin indent on
 
 if ! has('gui_running')
@@ -40,6 +39,7 @@ set diffopt+=vertical
 
 let g:ale_linters = { 'python': ['flake8'] }
 "let g:ale_linters_explicit = 1
+let g:ale_python_flake8_options = '--max-line-length=120'
 
 " CtrlP shortcuts
 let g:ctrlp_map = '<c-p>'
