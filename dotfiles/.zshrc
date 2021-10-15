@@ -1,140 +1,80 @@
-export PATH=$HOME/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/go/bin:$PATH
-export PATH=$(go env GOPATH)/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/thekyz/.oh-my-zsh"
-
-ZSH_THEME="robbyrussell"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  zsh-history-substring-search
-)
-
-# fix background issues with highlighting plugin
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=white'
-
-source $ZSH/oh-my-zsh.sh
-
-HISTSIZE=SAVEHIST=10000000
-# Treat the '!' character specially during expansion.
-setopt BANG_HIST
-setopt EXTENDED_HISTORY
-# Write to the history file immediately, not when the shell exits.
-setopt INC_APPEND_HISTORY
-# Share history between all sessions.
-setopt SHARE_HISTORY
-# Expire duplicate entries first when trimming history.
-setopt HIST_EXPIRE_DUPS_FIRST
-# Do not record an entry that was just recorded again.
-setopt HIST_IGNORE_DUPS
-# Delete old recorded entry if new entry is a duplicate.
-setopt HIST_IGNORE_ALL_DUPS
-# Do not display a line previously found.
-setopt HIST_FIND_NO_DUPS
-# Do not record an entry starting with a space.
-setopt HIST_IGNORE_SPACE
-# Do not write duplicate entries in the history file.
-setopt HIST_SAVE_NO_DUPS
-# Remove superfluous blanks before recording entry.
-setopt HIST_REDUCE_BLANKS
-# Do not execute immediately upon history expansion.
-setopt HIST_VERIFY
-# Beep when accessing nonexistent history.
-#setopt HIST_BEEP
-
-export LESS="-FXR"
-export PAGER=less
-
-export LANG=en_US.UTF-8
-export GOPATH=$HOME/dev/go
-
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='vim'
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-alias sc="source ~/.zshrc"
-alias ec="vim ~/.zshrc"
+LC_CTYPE=en_US.UTF-8
+LC_ALL=en_US.UTF-8
 
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
+alias ls='ls -G --color'
+alias rgf='rg --files | rg'
+alias cherry='git fetch; git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done; git remote prune origin'
+#alias vim='nvim'
 
-# switch to vim mode
-bindkey -v
+alias wc1='cd ~/dev/wayvecode_1'
+alias wc2='cd ~/dev/wayvecode_2'
+alias wc3='cd ~/dev/wayvecode_3'
+alias wc4='cd ~/dev/wayvecode_4'
+alias wc5='cd ~/dev/wayvecode_5'
 
-export KEYTIMEOUT=1
+alias upvpn='sudo nmcli con up id wayve'
+alias downvpn='sudo nmcli con down id wayve'
 
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+alias ccat='pygmentize -g -O style=monokai'
 
-zplug 'simnalamburt/shellder', as:theme
-if ! zplug check; then
-    zplug install
-fi
-zplug load
+setopt inc_append_history
+setopt histignorealldups
+setopt share_history
 
-precmd() { RPROMPT="" }
-function zle-line-init zle-keymap-select {
-   VIM_PROMPT="%{$fg_bold[yellow]%} [% N]%  %{$reset_color%}"
-   RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-   zle reset-prompt
+source ~/utils/powerlevel10k/powerlevel10k.zsh-theme
+
+export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+export PATH=~/.local/bin:~/.cargo/bin:${PATH}
+
+HISTSIZE=999999
+SAVEHIST=999999
+HISTFILE=~/.zsh_history
+
+# Use modern completion system
+autoload -Uz compinit
+compinit
+
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+source ~/utils/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/utils/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ~/utils/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
+if [ -e /home/thekyz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/thekyz/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+autoload -Uz bashcompinit && bashcompinit
+_fly_compl() {
+	args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
+	local IFS=$'\n'
+	COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
+	return 0
 }
-
-zle -N zle-line-init
-zle -N zle-keymap-select
+complete -F _fly_compl fly
