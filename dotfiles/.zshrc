@@ -5,10 +5,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export TERM=screen-256color
+
 LC_CTYPE=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 
 alias ls='ls -G --color'
+alias ll='ls -al'
 alias rgf='rg --files | rg'
 alias cherry='git fetch; git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done; git remote prune origin'
 #alias vim='nvim'
