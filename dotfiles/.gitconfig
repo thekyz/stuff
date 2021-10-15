@@ -13,6 +13,7 @@
     d = difftool
     st = status
     pushd = push -u origin HEAD
+    mm = !git fetch && git merge origin/master
 [user]
     name = thekyz
     email = thekyz@gmail.com
@@ -34,3 +35,8 @@
     prompt = false
 [rerere]
     enabled = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge --skip -- %f
+	process = git-lfs filter-process --skip
+	required = true
