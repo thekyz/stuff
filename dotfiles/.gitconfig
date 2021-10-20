@@ -14,29 +14,35 @@
     st = status
     pushd = push -u origin HEAD
     mm = !git fetch && git merge origin/master
+
 [user]
-    name = thekyz
+    name = Alex Garcia
     email = thekyz@gmail.com
+
 [push]
     default = simple
+
 [diff]
-    ;tool = opendiff
     tool = vimdiff
+
 [merge]
     tool = vimdiffm
     conflictstyl = diff3
+
 [mergetool "vimdiffm"]
-    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-[mergetool "opendiff"]
-    cmd = /usr/bin/opendiff $LOCAL $REMOTE -ancestor $BASE -merge $MERGED
+    cmd = vim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
 [core]
     editor = vim
+
 [difftool]
     prompt = false
+
 [rerere]
     enabled = true
+
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge --skip -- %f
-	process = git-lfs filter-process --skip
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge --skip -- %f
+    process = git-lfs filter-process --skip
+    required = true
