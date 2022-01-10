@@ -2,7 +2,7 @@
     root = rev-parse --show-toplevel
 
     lg = !"git lg1"
-    lg1 = !"git lg1-specific"
+    lg1 = !"git lg1-specific --branches"
     lg2 = !"git lg2-specific"
     lg3 = !"git lg3-specific"
 
@@ -14,6 +14,7 @@
     st = status
     pushd = push -u origin HEAD
     mm = !git fetch && git merge origin/master
+    reb = !git fetch && git rebase origin/master
 
 [user]
     name = Alex Garcia

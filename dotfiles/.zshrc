@@ -10,7 +10,13 @@ export TERM=screen-256color
 LC_CTYPE=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 
-alias ls='ls -G --color'
+alias python3='/run/current-system/sw/bin/python3'
+alias pip3='/run/current-system/sw/bin/pip3'
+
+alias vim='nvim'
+alias em='emacs -nw'
+
+#alias ls='ls -G --color'
 alias ll='ls -al'
 alias rgf='rg --files | rg'
 alias cherry='git fetch; git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done; git remote prune origin'
@@ -34,7 +40,7 @@ setopt share_history
 source ~/utils/powerlevel10k/powerlevel10k.zsh-theme
 
 export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
-export PATH=~/.local/bin:~/.cargo/bin:${PATH}
+export PATH=/run/current-system/sw/bin:~/.local/bin:~/.cargo/bin:${PATH}
 
 HISTSIZE=999999
 SAVEHIST=999999
@@ -61,7 +67,6 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -69,15 +74,10 @@ source ~/utils/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/utils/zsh-history-substring-search/zsh-history-substring-search.zsh
 source ~/utils/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-bindkey '^[OA' history-substring-search-up
-bindkey '^[OB' history-substring-search-down
+#bindkey '^[OA' history-substring-search-up
+#bindkey '^[OB' history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 if [ -e /home/thekyz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/thekyz/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-autoload -Uz bashcompinit && bashcompinit
-_fly_compl() {
-	args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
-	local IFS=$'\n'
-	COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
-	return 0
-}
-complete -F _fly_compl fly
