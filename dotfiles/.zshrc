@@ -10,11 +10,10 @@ export TERM=screen-256color
 LC_CTYPE=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 
-alias python3='/run/current-system/sw/bin/python3'
-alias pip3='/run/current-system/sw/bin/pip3'
+#alias python3='/run/current-system/sw/bin/python3'
+#alias pip3='/run/current-system/sw/bin/pip3'
 
 alias vim='nvim'
-alias em='emacs -nw'
 
 #alias ls='ls -G --color'
 alias ll='ls -al'
