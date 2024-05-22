@@ -20,14 +20,16 @@ sshvm () {
 #alias ls='ls -G --color'
 alias ll='ls -al'
 alias rgf='rg --files | rg'
-alias cherry='git fetch; git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done; git remote prune origin'
-#alias vim='nvim'
+alias cherry='git fetch; git checkout -q main && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base main $branch) && [[ $(git cherry main $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done; git remote prune origin'
+alias vim='nvim'
 
 alias wc1='cd ~/dev/wc1'
 alias wc2='cd ~/dev/wc2'
 alias wc3='cd ~/dev/wc3'
 alias wc4='cd ~/dev/wc4'
 alias wc5='cd ~/dev/wc5'
+
+alias ibazel=/home/alex.garcia/dev/contrib/bazel-watcher/bazel-bin/cmd/ibazel/ibazel_/ibazel
 
 alias upvpn='sudo nmcli con up id wayve'
 alias downvpn='sudo nmcli con down id wayve'
@@ -86,5 +88,8 @@ source ~/utils/zsh-autosuggestions/zsh-autosuggestions.zsh
 #bindkey '^[OB' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 if [ -e /home/thekyz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/thekyz/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
