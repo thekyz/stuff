@@ -1,0 +1,78 @@
+[alias]
+    root = rev-parse --show-toplevel
+
+    lg = !"git lg1"
+    lg1 = !"git lg1-specific --branches"
+    lg2 = !"git lg2-specific"
+    lg3 = !"git lg3-specific"
+
+    wip = log --oneline --abbrev-commit --graph --decorate
+    lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+    lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+    lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+    d = difftool
+    st = status
+    pushd = push -u origin HEAD
+    mm = !git fetch && git merge origin/main
+    reb = !git fetch && git rebase origin/main
+
+[user]
+    name = Alex Garcia
+    email = alex.garcia@wayve.ai
+
+[push]
+    default = simple
+
+[diff]
+    tool = vimdiff
+
+[merge]
+    tool = vimdiffm
+    conflictstyl = diff3
+
+[mergetool "vimdiffm"]
+    cmd = vim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[core]
+    editor = vim
+	pager = diff-so-fancy | less --tabs=4 -RFX
+
+[difftool]
+    prompt = false
+
+[rerere]
+    enabled = true
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge --skip -- %f
+    process = git-lfs filter-process --skip
+    required = true
+
+[pull]
+    ff = only
+[diff-so-fancy]
+	stripLeadingSymbols = false
+	markEmptyLines = false
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
