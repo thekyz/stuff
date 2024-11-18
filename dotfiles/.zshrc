@@ -6,9 +6,21 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 export TERM=screen-256color
+export EDITOR=vim
+export GAMCFGDIR="/Users/thekyz/.config/GAMConfig"
 
 LC_CTYPE=en_US.UTF-8
 LC_ALL=en_US.UTF-8
+
+unlock_ci_vms() {
+    sed -i "s|\(.*# comment this out if you'd like to manually rebuild.*\)|#\1|" $(git rev-parse --show-toplevel)/infrastructure/azure/terraform/wayve/ci-cd-vms/vm.tf
+    sed -i "s|\(.*# comment this out and apply manually if you really want to destroy.*\)|#\1|" $(git rev-parse --show-toplevel)/infrastructure/azure/terraform/wayve/ci-cd-vms/vm.tf
+}
+
+lock_ci_vms() {
+    sed -i "s|#\(.*# comment this out if you'd like to manually rebuild.*\)|\1|" $(git rev-parse --show-toplevel)/infrastructure/azure/terraform/wayve/ci-cd-vms/vm.tf
+    sed -i "s|#\(.*# comment this out and apply manually if you really want to destroy.*\)|\1|" $(git rev-parse --show-toplevel)/infrastructure/azure/terraform/wayve/ci-cd-vms/vm.tf
+}
 
 sshvm () {
     ssh -i ~/.ssh/terraform-mlp-key wayve@$(az vm list-ip-addresses -g rg-prod-ci-cd -n $1 | jq ".[0].virtualMachine.network.privateIpAddresses[0]" -r)
@@ -28,6 +40,8 @@ alias wc2='cd ~/dev/wc2'
 alias wc3='cd ~/dev/wc3'
 alias wc4='cd ~/dev/wc4'
 alias wc5='cd ~/dev/wc5'
+alias wc6='cd ~/dev/wc6'
+alias wc7='cd ~/dev/wc7'
 
 alias ibazel=/home/alex.garcia/dev/contrib/bazel-watcher/bazel-bin/cmd/ibazel/ibazel_/ibazel
 
@@ -40,14 +54,14 @@ setopt inc_append_history
 setopt histignorealldups
 setopt share_history
 
-case `uname` in
-  Darwin)
-    source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
-  ;;
-  Linux)
-    source ~/utils/powerlevel10k/powerlevel10k.zsh-theme
-  ;;
-esac
+#case `uname` in
+#  Darwin)
+#    #source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+#  ;;
+#  Linux)
+#    source ~/utils/powerlevel10k/powerlevel10k.zsh-theme
+#  ;;
+#esac
 
 export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
 export PATH=/run/current-system/sw/bin:/opt/homebrew/bin/:~/.local/bin:~/.cargo/bin:${PATH}
@@ -77,9 +91,6 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 source ~/utils/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/utils/zsh-history-substring-search/zsh-history-substring-search.zsh
 source ~/utils/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -93,3 +104,20 @@ source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 
 if [ -e /home/thekyz/.nix-profile/etc/profile.d/nix.sh ]; then . /home/thekyz/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# pnpm
+export PNPM_HOME="/Users/thekyz/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+#eval "$(/usr/local/bin/starship init zsh)"
+
+source ~/utils/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
